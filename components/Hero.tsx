@@ -1,6 +1,7 @@
 
 
 import React, { useState, useEffect } from 'react';
+import { generateHeroCopy } from '../services/geminiService';
 
 const holidays: { [key: string]: string } = {
     "1-1": "Happy New Year, Bangalore!",
@@ -13,10 +14,16 @@ const holidays: { [key: string]: string } = {
     "25-12": "Merry Christmas and Happy Holidays!",
 };
 
+const defaultCopy = {
+    headline: "Intelligent Fuel.\nEffortless Success.",
+    subheadline: "Unlock your optimal health with our revolutionary AI meal planner and gourmet healthy meal delivery, exclusively in Bengaluru."
+};
+
 
 export const Hero: React.FC = () => {
   const [specialGreeting, setSpecialGreeting] = useState<string | null>(null);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [heroCopy, setHeroCopy] = useState(defaultCopy);
 
   useEffect(() => {
     // Check for special holidays
@@ -25,6 +32,21 @@ export const Hero: React.FC = () => {
     if (holidays[dateKey]) {
         setSpecialGreeting(holidays[dateKey]);
     }
+
+    const fetchHeroCopy = async () => {
+        try {
+            const copies = await generateHeroCopy();
+            if (copies && copies.length > 0) {
+                const randomIndex = Math.floor(Math.random() * copies.length);
+                setHeroCopy(copies[randomIndex]);
+            }
+        } catch (error) {
+            console.error("Failed to fetch dynamic hero copy:", error);
+            // Fallback to default copy is already handled by initial state
+        }
+    };
+
+    fetchHeroCopy();
   }, []);
   
   const heroImageUrl = "https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&fm=webp";
@@ -69,13 +91,11 @@ export const Hero: React.FC = () => {
         <h2 className="text-xl sm:text-2xl font-semibold text-white/90 mb-3 animate-on-scroll" data-animation="slide-fade-in-up" data-stagger-delay="0.1s" style={{textShadow: '0 2px 8px rgba(0,0,0,0.5)'}}>
           Imagine a Perfect Dinner Tonight. Let's Make It Happen.
         </h2>
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold font-iowan mb-4 leading-tight whitespace-normal animate-on-scroll" data-animation="fade-in" data-stagger-delay="0.2s" style={{textShadow: '0 3px 15px rgba(0,0,0,0.6)'}}>
-            Intelligent Fuel.
-            <br />
-            Effortless Success.
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold font-iowan mb-4 leading-tight whitespace-pre-line animate-on-scroll" data-animation="fade-in" data-stagger-delay="0.2s" style={{textShadow: '0 3px 15px rgba(0,0,0,0.6)'}}>
+            {heroCopy.headline}
         </h1>
         <p className="text-base sm:text-lg lg:text-xl max-w-3xl mx-auto mb-8 text-white/90 animate-on-scroll" data-animation="fade-in" data-stagger-delay="0.3s" style={{textShadow: '0 2px 8px rgba(0,0,0,0.5)'}}>
-            Unlock your optimal health with our revolutionary AI meal planner and gourmet healthy meal delivery, exclusively in Bengaluru.
+            {heroCopy.subheadline}
         </p>
 
         {/* Feature Callouts */}
