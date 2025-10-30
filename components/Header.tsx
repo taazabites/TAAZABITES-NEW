@@ -38,10 +38,8 @@ export const Header: React.FC = () => {
     }
 
     // Close mobile menu after clicking a link
-    if (isMenuOpen) {
-        setIsMenuOpen(false);
-    }
-  }, [isMenuOpen]);
+    setIsMenuOpen(false);
+  }, []);
 
   type NavLinkProps = React.PropsWithChildren<{ href: string; mode?: 'dark' | 'light' }>;
 

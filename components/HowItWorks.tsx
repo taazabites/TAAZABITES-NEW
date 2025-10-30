@@ -63,7 +63,7 @@ export const HowItWorks: React.FC = () => {
                 if (ref) observer.unobserve(ref);
             });
         };
-    }, [steps.length]);
+    }, []);
 
     return (
         <section id="how-it-works" className="py-16 sm:py-20 md:py-24 bg-white overflow-x-hidden">
