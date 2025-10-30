@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
-const TestimonialCard = ({ quote, author, title, avatar, staggerDelay }: { quote: string; author:string; title: string; avatar: string; staggerDelay?: string; }) => (
+// FIX: Updated component to use React.FC and an interface for props to correctly handle React's `key` prop.
+interface TestimonialCardProps {
+    quote: string;
+    author:string;
+    title: string;
+    avatar: string;
+    staggerDelay?: string;
+}
+const TestimonialCard: React.FC<TestimonialCardProps> = ({ quote, author, title, avatar, staggerDelay }) => (
     <figure className={`bg-white p-6 sm:p-8 rounded-2xl shadow-lg h-full flex flex-col transition-all duration-300 lg:hover:shadow-2xl lg:hover:-translate-y-2 animate-on-scroll border border-zinc-200/50`} data-animation="slide-fade-in-up" data-stagger-delay={staggerDelay}>
         <div className="flex-grow flex flex-col">
             <blockquote className="flex-grow">

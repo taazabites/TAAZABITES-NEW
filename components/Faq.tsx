@@ -6,7 +6,14 @@ interface Faq {
     answer: string;
 }
 
-const FaqItem = ({ question, answer, staggerDelay, onToggle }: { question: string; answer: string; staggerDelay: string; onToggle: (e: React.SyntheticEvent<HTMLDetailsElement>) => void; }) => (
+// FIX: Updated component to use React.FC and an interface for props to correctly handle React's `key` prop.
+interface FaqItemProps {
+    question: string;
+    answer: string;
+    staggerDelay: string;
+    onToggle: (e: React.SyntheticEvent<HTMLDetailsElement>) => void;
+}
+const FaqItem: React.FC<FaqItemProps> = ({ question, answer, staggerDelay, onToggle }) => (
     <details 
         onToggle={onToggle} 
         className="bg-white rounded-xl group animate-on-scroll border border-zinc-200/60 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1 open:shadow-2xl"

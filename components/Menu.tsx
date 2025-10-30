@@ -205,7 +205,14 @@ export const Menu: React.FC = () => {
         });
     };
     
-    const FilterButton = ({ value, label, isActive, onClick }: { value: string; label: string; isActive: boolean; onClick: (value: string) => void; }) => (
+    // FIX: Updated component to use React.FC and an interface for props to correctly handle React's `key` prop.
+    interface FilterButtonProps {
+        value: string;
+        label: string;
+        isActive: boolean;
+        onClick: (value: string) => void;
+    }
+    const FilterButton: React.FC<FilterButtonProps> = ({ value, label, isActive, onClick }) => (
       <button 
         onClick={() => onClick(value)}
         aria-pressed={isActive}

@@ -1,133 +1,126 @@
-import React, { useState, useRef, useEffect } from 'react';
 
-const StepCard = ({ number, icon, title, text, staggerDelay }: { number: string; icon: string; title: string; text: string; staggerDelay: string; }) => (
-    <article className="relative pt-8 sm:pt-12 animate-on-scroll z-10" data-animation="slide-fade-in-up" data-stagger-delay={staggerDelay}>
-        <div className="relative bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-zinc-200/60 flex flex-col items-center text-center h-full">
-            <div className="absolute -top-8 sm:-top-10 flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[var(--primary)] to-lime-400 text-white rounded-full shadow-lg border-4 border-white">
-                <i className={`fas ${icon} text-2xl sm:text-3xl`}></i>
-            </div>
-            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 flex items-center justify-center bg-[var(--accent-secondary)] text-white text-sm font-bold rounded-full border-2 border-white shadow-sm">
-                {number}
-            </div>
-            <h3 className="text-lg sm:text-xl font-bold font-iowan text-[var(--primary-dark)] mb-2 mt-8">{title}</h3>
-            <p className="text-zinc-600 max-w-xs text-sm flex-grow">{text}</p>
+import React, { useState } from 'react';
+
+const stepsData = [
+  {
+    id: 1,
+    icon: 'fa-robot',
+    title: 'Personalize with AI',
+    description: 'Answer a few simple questions and let our revolutionary AI nutritionist craft a personalized meal plan just for you. Or, take control and build your own from our diverse menu.',
+    imageUrl: 'https://images.unsplash.com/photo-1576834599553-b088a04467c6?ixlib=rb-4.0.3&fm=webp&w=800&q=75',
+  },
+  {
+    id: 2,
+    icon: 'fa-utensils',
+    title: 'Gourmet, Healthy Cooking',
+    description: 'Our expert chefs transform the freshest, locally-sourced ingredients into delicious, macro-balanced meals. Every dish is a perfect blend of nutrition and flavor, cooked to perfection.',
+    imageUrl: 'https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?ixlib=rb-4.0.3&fm=webp&w=800&q=75',
+  },
+  {
+    id: 3,
+    icon: 'fa-shipping-fast',
+    title: 'Effortless & On-Time Delivery',
+    description: 'Your meals are delivered fresh to your doorstep in Bengaluru, right on schedule. Skip the shopping, prepping, and cleaning. Just heat, eat, and conquer your day.',
+    imageUrl: 'https://images.unsplash.com/photo-1596797882565-3c483b483981?ixlib=rb-4.0.3&fm=webp&w=800&q=75',
+  },
+];
+
+const StepItem: React.FC<{
+  step: typeof stepsData[0];
+  isActive: boolean;
+  onClick: () => void;
+}> = ({ step, isActive, onClick }) => {
+  return (
+    <div
+      onClick={onClick}
+      className={`p-6 rounded-2xl cursor-pointer transition-all duration-300 border-2 ${
+        isActive
+          ? 'bg-white shadow-2xl border-[var(--primary)] scale-105'
+          : 'bg-zinc-50 border-transparent hover:bg-white hover:shadow-lg'
+      }`}
+    >
+      <div className="flex items-center gap-5">
+        <div
+          className={`w-12 h-12 rounded-full flex items-center justify-center text-xl transition-all duration-300 flex-shrink-0 ${
+            isActive
+              ? 'bg-[var(--primary)] text-white'
+              : 'bg-zinc-200 text-zinc-600'
+          }`}
+        >
+          <i className={`fas ${step.icon}`}></i>
         </div>
-    </article>
-);
+        <div>
+          <h3 className="text-lg font-bold font-iowan text-[var(--primary-dark)]">{step.title}</h3>
+        </div>
+      </div>
+      <div
+        className={`grid transition-all duration-500 ease-in-out ${
+          isActive ? 'grid-rows-[1fr] opacity-100 pt-4' : 'grid-rows-[0fr] opacity-0'
+        }`}
+      >
+        <div className="overflow-hidden">
+          <p className="text-zinc-600">{step.description}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 
 export const HowItWorks: React.FC = () => {
-    const steps = [
-        { number: "1", icon: "fa-magic", title: "Craft Your Plan", text: "Select from our curated menu or let our AI nutritionist design a personalized plan tailored to your unique goals and tastes.", staggerDelay: "0s" },
-        { number: "2", icon: "fa-utensils", title: "We Cook & Deliver", text: "Our culinary experts craft each meal using the freshest local ingredients, which is then delivered straight to your doorstep.", staggerDelay: "0.2s" },
-        { number: "3", icon: "fa-rocket", title: "Heat, Eat & Conquer", text: "No prep, no cleanup. Just heat, enjoy, and feel the energy to conquer your day. Healthy eating has never been this simple.", staggerDelay: "0.4s" }
-    ];
-    
-    const [activeIndex, setActiveIndex] = useState(0);
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
-    const stepRefs = useRef<(HTMLElement | null)[]>([]);
-
-    const handleDotClick = (index: number) => {
-        stepRefs.current[index]?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'center'
-        });
-    };
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const index = stepRefs.current.indexOf(entry.target as HTMLElement);
-                        if (index !== -1) {
-                            setActiveIndex(index);
-                        }
-                    }
-                });
-            },
-            {
-                root: scrollContainerRef.current,
-                threshold: 0.7,
-            }
-        );
-
-        const currentStepRefs = stepRefs.current;
-        currentStepRefs.forEach((ref) => {
-            if (ref) observer.observe(ref);
-        });
-
-        return () => {
-            currentStepRefs.forEach((ref) => {
-                if (ref) observer.unobserve(ref);
-            });
-        };
-    }, []);
+    const [activeStep, setActiveStep] = useState(1);
 
     return (
-        <section id="how-it-works" className="py-16 sm:py-20 md:py-24 bg-white overflow-x-hidden">
-            <div className="container mx-auto px-4">
+        <section id="how-it-works" className="py-16 sm:py-20 md:py-24 bg-[var(--section-bg-light-green)] overflow-hidden relative">
+             <div className="section-divider top">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="shape-fill"></path>
+                </svg>
+            </div>
+            <div className="container mx-auto px-4 relative">
                 <div className="text-center mb-12 animate-on-scroll" data-animation="slide-fade-in-up">
                     <h2 className="text-3xl md:text-4xl font-bold font-iowan text-[var(--primary-dark)] inline-block relative pb-2">
-                        Healthy Eating, Simplified
+                        Your Journey to Peak Health
                         <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-1 bg-[var(--accent)]"></span>
                     </h2>
-                    <p className="max-w-2xl mx-auto mt-4 text-zinc-600">Get fresh, nutritionist-designed meals delivered to your doorstep in just three easy steps.</p>
+                    <p className="max-w-2xl mx-auto mt-4 text-zinc-600">Three simple steps to unlock a healthier, more productive you with Taazabites in Bengaluru.</p>
                 </div>
 
-                {/* Mobile Slider */}
-                <div className="lg:hidden">
-                    <div
-                        ref={scrollContainerRef}
-                        className="flex overflow-x-auto snap-x snap-mandatory scroll-pl-4 hide-scrollbar -mx-4 px-4 py-8"
-                    >
-                        {steps.map((step, index) => (
+                <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    <div className="flex flex-col gap-6 animate-on-scroll" data-animation="slide-in-left">
+                        {stepsData.map((step) => (
+                            <StepItem
+                                key={step.id}
+                                step={step}
+                                isActive={activeStep === step.id}
+                                onClick={() => setActiveStep(step.id)}
+                            />
+                        ))}
+                    </div>
+
+                    <div className="relative h-96 lg:h-[500px] animate-on-scroll" data-animation="slide-in-right">
+                         <div className="absolute w-full h-full bg-gradient-to-br from-green-100 to-lime-100/50 rounded-3xl transform rotate-3 -z-10"></div>
+                        {stepsData.map((step) => (
                              <div 
-                                key={index}
-                                ref={el => { stepRefs.current[index] = el; }}
-                                className={`flex-shrink-0 w-[85vw] max-w-sm snap-center px-2 transition-all duration-500 ease-in-out transform ${activeIndex === index ? 'scale-100 opacity-100' : 'scale-90 opacity-60'}`}
+                                key={step.id}
+                                className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${activeStep === step.id ? 'opacity-100' : 'opacity-0'}`}
                              >
-                                <StepCard 
-                                    number={step.number}
-                                    icon={step.icon}
-                                    title={step.title}
-                                    text={step.text}
-                                    staggerDelay="0s" 
+                                <img
+                                    src={step.imageUrl}
+                                    alt={step.title}
+                                    className="w-full h-full object-cover rounded-2xl shadow-2xl"
+                                    loading="lazy"
+                                    decoding="async"
                                 />
                             </div>
                         ))}
                     </div>
-                     <div className="flex justify-center gap-3 mt-4">
-                        {steps.map((_, i) => (
-                            <button
-                                key={i}
-                                onClick={() => handleDotClick(i)}
-                                className={`w-3 h-3 rounded-full transition-all duration-300 ${activeIndex === i ? 'bg-[var(--primary)] scale-125' : 'bg-zinc-300 hover:bg-zinc-400'}`}
-                                aria-label={`Go to step ${i + 1}`}
-                            />
-                        ))}
-                    </div>
                 </div>
-
-                {/* Desktop Grid */}
-                <div className="hidden lg:grid lg:grid-cols-3 gap-x-8 relative">
-                    <div className="absolute top-1/2 left-0 w-full h-0.5 mt-[-100px] -z-10">
-                        <svg width="100%" height="2">
-                            <line x1="15%" y1="1" x2="85%" y2="1" stroke="#cbd5e1" strokeWidth="4" strokeDasharray="8 8" />
-                        </svg>
-                    </div>
-                    {steps.map(step => (
-                        <StepCard 
-                            key={step.number} 
-                            number={step.number}
-                            icon={step.icon}
-                            title={step.title}
-                            text={step.text}
-                            staggerDelay={step.staggerDelay}
-                        />
-                    ))}
-                </div>
+            </div>
+            <div className="section-divider">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="shape-fill"></path>
+                </svg>
             </div>
         </section>
     );

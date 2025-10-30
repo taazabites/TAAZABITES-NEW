@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
-const FeatureCard = ({ icon, title, text, staggerDelay }: { icon: string; title: string; text: string; staggerDelay: string; }) => (
+// FIX: Updated component to use React.FC and an interface for props to correctly handle React's `key` prop.
+interface FeatureCardProps {
+    icon: string;
+    title: string;
+    text: string;
+    staggerDelay: string;
+}
+const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, text, staggerDelay }) => (
   <div className={`bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 text-center flex flex-col justify-center items-center h-full animate-on-scroll border border-zinc-200/60`} data-animation="slide-fade-in-up" data-stagger-delay={staggerDelay}>
     <div className="mx-auto mb-4 w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--primary-light)] via-white to-green-50 text-[var(--primary-dark)] text-3xl flex items-center justify-center border border-zinc-200/80 shadow-inner">
       <i className={icon}></i>
@@ -10,7 +17,16 @@ const FeatureCard = ({ icon, title, text, staggerDelay }: { icon: string; title:
   </div>
 );
 
-const RatingCard = ({ platform, rating, reviews, logo, color, staggerDelay }: { platform: string; rating: string; reviews: string; logo: React.ReactNode; color: string; staggerDelay: string; }) => {
+// FIX: Updated component to use React.FC and an interface for props to correctly handle React's `key` prop.
+interface RatingCardProps {
+    platform: string;
+    rating: string;
+    reviews: string;
+    logo: React.ReactNode;
+    color: string;
+    staggerDelay: string;
+}
+const RatingCard: React.FC<RatingCardProps> = ({ platform, rating, reviews, logo, color, staggerDelay }) => {
     const renderStars = () => {
         const fullStars = Math.floor(parseFloat(rating));
         const halfStar = parseFloat(rating) % 1 >= 0.5;
