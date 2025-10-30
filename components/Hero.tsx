@@ -151,4 +151,20 @@ export const Hero: React.FC = () => {
         <h2 className="text-xl sm:text-2xl font-semibold text-white/90 mb-3 animate-on-scroll" data-animation="slide-fade-in-up" data-stagger-delay="0.1s" style={{textShadow: '0 2px 8px rgba(0,0,0,0.5)'}}>
             {heroContent.subtitle}
         </h2>
-        <h1 key={currentCopyIndex} className="text-5xl sm:text-6xl lg:text-7xl font-bold font-iowan mb-4 leading-tight whitespace
+        <h1 key={currentCopyIndex} className="text-5xl sm:text-6xl lg:text-7xl font-bold font-iowan mb-4 leading-tight whitespace-normal animate-on-scroll" data-animation="fade-in" data-stagger-delay="0.2s" style={{textShadow: '0 3px 15px rgba(0,0,0,0.6)'}}>
+            {currentCopy.headline.split('\n').map((line, index) => (
+                <span key={index} className="block">{line}</span>
+            ))}
+        </h1>
+        <p key={`${currentCopyIndex}-sub`} className="text-base sm:text-lg lg:text-xl max-w-3xl mx-auto mb-8 text-white/90 animate-on-scroll" data-animation="fade-in" data-stagger-delay="0.3s" style={{textShadow: '0 2px 8px rgba(0,0,0,0.5)'}}>
+            {currentCopy.subheadline}
+        </p>
+        <div className="animate-on-scroll" data-animation="fade-in" data-stagger-delay="0.4s">
+            <a href="https://taazabites.in/menu" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-gradient-to-r from-[var(--primary)] to-[var(--primary-dark)] text-white shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 ripple-effect">
+                <i className="fas fa-shopping-cart"></i> Order Now
+            </a>
+        </div>
+      </div>
+    </section>
+  );
+};
