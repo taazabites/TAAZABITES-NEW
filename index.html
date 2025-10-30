@@ -65,10 +65,10 @@
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css">
     
     <!-- Performance: Non-blocking Font-Awesome and Google Fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
 
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
 
     <style>
@@ -151,7 +151,7 @@
       /* Form Input Glow */
       .form-glow input:focus, .form-glow select:focus, .form-glow textarea:focus {
         box-shadow: 0 0 0 3px rgba(85, 181, 40, 0.4);
-        border-color: var(--primary) !important;
+        border-color: var(--primary);
       }
       
       /* Button Ripple Effect */
@@ -531,6 +531,14 @@
     "@google/genai": "https://aistudiocdn.com/@google/genai@^1.26.0"
   }
 }
+</script>
+<script>
+  // Securely attach event listeners for non-blocking CSS
+  document.querySelectorAll("link[rel='preload'][as='style']").forEach(function(link) {
+    link.addEventListener('load', function() {
+      this.rel = 'stylesheet';
+    }, { once: true });
+  });
 </script>
 </head>
   <body>

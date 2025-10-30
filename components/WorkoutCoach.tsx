@@ -17,6 +17,48 @@ const WorkoutResultSkeleton = () => (
     </div>
 );
 
+const WorkoutResultRenderer: React.FC<{ text: string }> = ({ text }) => {
+    const parseInline = (line: string): React.ReactNode => {
+        const parts = line.split(/(\*\*.*?\*\*|\*.*?\*)/g);
+        return parts.map((part, index) => {
+            if (part.startsWith('**') && part.endsWith('**')) {
+                return <strong key={index}>{part.slice(2, -2)}</strong>;
+            }
+            if (part.startsWith('*') && part.endsWith('*')) {
+                return <em key={index}>{part.slice(1, -1)}</em>;
+            }
+            return part;
+        });
+    };
+
+    const lines = text.split('\n').filter(line => line.trim() !== '');
+    const elements: React.ReactNode[] = [];
+    let currentList: React.ReactNode[] = [];
+
+    lines.forEach((line, index) => {
+        const trimmedLine = line.trim();
+        if (trimmedLine.startsWith('- ')) {
+            currentList.push(<li key={index} className="ml-4">{parseInline(trimmedLine.substring(2))}</li>);
+        } else {
+            if (currentList.length > 0) {
+                elements.push(<ul key={`ul-${index}`}>{currentList}</ul>);
+                currentList = [];
+            }
+            if (trimmedLine.startsWith('Disclaimer:')) {
+                 elements.push(<p key={index} className="text-sm text-zinc-500 mt-4">{parseInline(trimmedLine)}</p>);
+            } else if (trimmedLine.length > 0) {
+                elements.push(<p key={index}>{parseInline(trimmedLine)}</p>);
+            }
+        }
+    });
+
+    if (currentList.length > 0) {
+        elements.push(<ul key="ul-last">{currentList}</ul>);
+    }
+
+    return <>{elements}</>;
+};
+
 export const WorkoutCoach: React.FC = () => {
     const [healthGoal, setHealthGoal] = useState('Weight Loss');
     const [workout, setWorkout] = useState('');
@@ -38,18 +80,6 @@ export const WorkoutCoach: React.FC = () => {
         } finally {
             setIsLoading(false);
         }
-    };
-
-    const renderResult = (text: string) => {
-        let html = text
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/^- (.*$)/gm, '<li class="ml-4">$1</li>')
-            .replace(/\n/g, '<br />');
-        
-        // Wrap lists
-        html = html.replace(/(<li.*?>.*?<\/li>)/gs, '<ul>$1</ul>').replace(/<\/ul><br \/><ul>/g, '');
-        return html;
     };
 
     return (
@@ -98,7 +128,9 @@ export const WorkoutCoach: React.FC = () => {
                             </div>
                         )}
                         {workout && (
-                            <div className="prose prose-zinc max-w-none ai-results animate-fade-in-pop" dangerouslySetInnerHTML={{ __html: renderResult(workout) }}></div>
+                            <div className="prose prose-zinc max-w-none ai-results animate-fade-in-pop">
+                                <WorkoutResultRenderer text={workout} />
+                            </div>
                         )}
                     </div>
                 </div>
