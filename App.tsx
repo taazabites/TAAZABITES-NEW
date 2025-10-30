@@ -43,14 +43,9 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    const handleLoad = () => {
-      setTimeout(() => setIsLoaderVisible(false), 500);
-    };
-    window.addEventListener('load', handleLoad);
+    // Performance: Hide loader quickly after initial render for better perceived speed.
+    const loaderTimeout = setTimeout(() => setIsLoaderVisible(false), 500);
     
-    // Fallback to hide loader
-    const fallbackTimeout = setTimeout(() => setIsLoaderVisible(false), 3000);
-
     // Exit-intent modal trigger: show after 1 to 3 minutes
     const minDelay = 60 * 1000; // 1 minute
     const maxDelay = 3 * 60 * 1000; // 3 minutes
@@ -122,8 +117,7 @@ const App: React.FC = () => {
 
 
     return () => {
-      window.removeEventListener('load', handleLoad);
-      clearTimeout(fallbackTimeout);
+      clearTimeout(loaderTimeout);
       clearTimeout(exitModalTimer);
     };
   }, []);

@@ -6,6 +6,49 @@ interface AiSearchProps {
     onClose: () => void;
 }
 
+// Safe component to render AI markdown-like responses
+const AiSearchResultRenderer: React.FC<{ text: string }> = ({ text }) => {
+    const parseInline = (line: string): React.ReactNode => {
+        // Split by **bold** tags, keeping the delimiters
+        const parts = line.split(/(\*\*.*?\*\*)/g);
+        return parts.map((part, index) => {
+            if (part.startsWith('**') && part.endsWith('**')) {
+                return <strong key={index}>{part.slice(2, -2)}</strong>;
+            }
+            return part; // Return plain text part
+        });
+    };
+
+    const lines = text.split('\n');
+    const elements: React.ReactNode[] = [];
+    let currentList: React.ReactNode[] = [];
+
+    lines.forEach((line, index) => {
+        if (line.trim().startsWith('- ')) {
+            // Add list item to current list
+            currentList.push(<li key={index}>{parseInline(line.trim().substring(2))}</li>);
+        } else {
+            // If we were in a list, close it off
+            if (currentList.length > 0) {
+                elements.push(<ul key={`ul-${index}`}>{currentList}</ul>);
+                currentList = [];
+            }
+            // Add a paragraph for non-empty lines
+            if (line.trim()) {
+                elements.push(<p key={index}>{parseInline(line)}</p>);
+            }
+        }
+    });
+
+    // Add any remaining list items at the end
+    if (currentList.length > 0) {
+        elements.push(<ul key="ul-last">{currentList}</ul>);
+    }
+
+    return <>{elements}</>;
+};
+
+
 export const AiSearch: React.FC<AiSearchProps> = ({ isOpen, onClose }) => {
     const [query, setQuery] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -33,18 +76,6 @@ export const AiSearch: React.FC<AiSearchProps> = ({ isOpen, onClose }) => {
     if (!isOpen) {
         return null;
     }
-    
-    const renderResult = (text: string) => {
-        let html = text
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/^- (.*$)/gm, '<li>$1</li>')
-            .replace(/\n/g, '<br />');
-
-        // Wrap consecutive list items in a ul
-        html = html.replace(/(<li>.*?<\/li>)/gs, '<ul>$1</ul>').replace(/<\/ul><br \/><ul>/g, '');
-        return html;
-    };
 
     return (
         <div 
@@ -76,7 +107,7 @@ export const AiSearch: React.FC<AiSearchProps> = ({ isOpen, onClose }) => {
                         </div>
                     )}
                     {error && <p className="text-red-500 bg-red-100 p-4 rounded-lg">{error}</p>}
-                    {result && <div className="prose prose-zinc max-w-none ai-results" dangerouslySetInnerHTML={{ __html: renderResult(result) }}></div>}
+                    {result && <div className="prose prose-zinc max-w-none ai-results"><AiSearchResultRenderer text={result} /></div>}
                 </div>
 
                 <form onSubmit={handleSearch} className="p-4 border-t border-zinc-200 bg-white flex gap-3 items-center flex-shrink-0 form-glow">

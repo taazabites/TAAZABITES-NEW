@@ -7,6 +7,7 @@ const StatItem = ({ icon, count, suffix, label }: { icon: string; count: number;
         const element = ref.current;
         if (!element) return;
         
+        let animationFrameId: number;
         const observer = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting) {
                 let start = 0;
@@ -18,20 +19,32 @@ const StatItem = ({ icon, count, suffix, label }: { icon: string; count: number;
                     const elapsedTime = currentTime - startTime;
                     const progress = Math.min(elapsedTime / duration, 1);
                     start = Math.floor(progress * end);
-                    element.textContent = start.toLocaleString();
+                    // Check if element is still mounted before updating
+                    if (element) {
+                        element.textContent = start.toLocaleString();
+                    }
                     if (progress < 1) {
-                        requestAnimationFrame(animate);
+                        animationFrameId = requestAnimationFrame(animate);
                     } else {
-                        element.textContent = end.toLocaleString();
+                        if (element) {
+                           element.textContent = end.toLocaleString();
+                        }
                     }
                 };
-                requestAnimationFrame(animate);
-                observer.disconnect();
+                animationFrameId = requestAnimationFrame(animate);
+                observer.unobserve(element); // Stop observing after animation starts
             }
         }, { threshold: 0.5 });
         
         observer.observe(element);
-        return () => observer.disconnect();
+
+        // Cleanup function to run when the component unmounts
+        return () => {
+            observer.disconnect(); // Disconnect the observer
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId); // Cancel the animation frame
+            }
+        };
     }, [count]);
 
     return (

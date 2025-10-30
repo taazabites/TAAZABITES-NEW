@@ -12,12 +12,12 @@ interface MenuItemProps {
 }
 
 const menuItemsData: MenuItemProps[] = [
-    { name: "High Protein Egg Chicken Meal", description: "Grilled chicken with boiled eggs and seasonal vegetables.", price: "349", imageUrl: "https://cdn.urbanpiper.com/media/bizmedia/2025/09/03/HYC3ipj-ea1cb459-9f06-4842-9f10-c36beef7395f.jpg?format=webp&w=400&q=75", tags: ["high-protein", "keto", "chefs-pick"], badge: "Chef's Pick", nutritionInfo: "Calories: 450, Protein: 40g, Carbs: 10g, Fat: 28g", orderLink: "https://taazabites.in/item/5215583/fit-feast-chicken-veggies-egg" },
+    { name: "High Protein Egg Chicken Meal", description: "Grilled chicken with boiled eggs and seasonal vegetables.", price: "349", imageUrl: "https://cdn.urbanpiper.com/media/bizmedia/2025/09/03/HYC3ipj-ea1cb459-9f06-4842-9f10-c36beef7395f.jpg", tags: ["high-protein", "keto", "chefs-pick"], badge: "Chef's Pick", nutritionInfo: "Calories: 450, Protein: 40g, Carbs: 10g, Fat: 28g", orderLink: "https://taazabites.in/item/5215583/fit-feast-chicken-veggies-egg" },
     { name: "Quinoa Power Bowl with Grilled Paneer", description: "Nutrient-packed quinoa with grilled paneer and fresh veggies.", price: "379", imageUrl: "https://cdn.urbanpiper.com/media/bizmedia/2025/10/25/XQI0vGF-c0de1c2c-b08a-4bf6-94b7-7cb7547c811a.jpg", tags: ["vegetarian", "high-protein", "healthy-start"], badge: "Healthy Start", nutritionInfo: "Calories: 450, Protein: 22g, Carbs: 50g, Fat: 18g", orderLink: "https://taazabites.in/item/5518227/protein-boost-paneer-quinoa-bowl" },
-    { name: "Premium Chicken Pink Pasta", description: "Creamy pink sauce with tender chicken and fresh herbs.", price: "459", imageUrl: "https://cdn.urbanpiper.com/media/bizmedia/2025/09/03/VruXdfjp-e6ccb5c5-fa1f-4e5d-90bc-12161af1fa18.jpg?format=webp&w=400&q=75", tags: ["high-protein", "indulgent"], badge: "Indulgent", nutritionInfo: "Calories: 550, Protein: 35g, Carbs: 50g, Fat: 25g", orderLink: "https://taazabites.in/item/3454075/premium-chicken-pink-pasta" },
-    { name: "Dry Fruit Whey Protein Shake", description: "A powerhouse shake with whey protein, almonds, and more.", price: "269", imageUrl: "https://cdn.urbanpiper.com/media/bizmedia/2025/10/15/bCSV8-f1b53677-3e7a-42ac-8e0f-46ed6af19bb6.jpg?format=webp&w=400&q=75", tags: ["high-protein", "keto", "healthy-boost"], badge: "Healthy Boost", nutritionInfo: "Calories: 380, Protein: 25g, Carbs: 30g, Fat: 18g", orderLink: "https://taazabites.in/item/5298366/dry-fruit-whey-protein-shake300ml" },
-    { name: "Dry Fruit Chia Pudding", description: "Chia seeds, assorted dry fruits and natural sweeteners.", price: "319", imageUrl: "https://cdn.urbanpiper.com/media/bizmedia/2025/09/03/s9ZRSy5-f46b9d1a-8aca-471a-ae55-11652376cce1.jpg?format=webp&w=400&q=75", tags: ["vegetarian", "healthy-start", "healthy-boost"], badge: "Healthy Start", nutritionInfo: "Calories: 350, Protein: 10g, Carbs: 45g, Fat: 15g", orderLink: "https://taazabites.in/item/5379667/dry-fruit-chia-pudding-350g" },
-    { name: "Protein Scramble Rice Bowl", description: "Scrambled eggs, veggie rice, and juicy chicken breast.", price: "349", imageUrl: "https://cdn.urbanpiper.com/media/bizmedia/2025/09/09/5x3bE-3c79d21a-07b6-498b-81fa-649a1c953380.jpg?format=webp&w=400&q=75", tags: ["high-protein"], nutritionInfo: "Calories: 480, Protein: 38g, Carbs: 30g, Fat: 24g", orderLink: "https://taazabites.in/item/5215586/protein-scramble-chicken-egg-rice-bowl" },
+    { name: "Premium Chicken Pink Pasta", description: "Creamy pink sauce with tender chicken and fresh herbs.", price: "459", imageUrl: "https://cdn.urbanpiper.com/media/bizmedia/2025/09/03/VruXdfjp-e6ccb5c5-fa1f-4e5d-90bc-12161af1fa18.jpg", tags: ["high-protein", "indulgent"], badge: "Indulgent", nutritionInfo: "Calories: 550, Protein: 35g, Carbs: 50g, Fat: 25g", orderLink: "https://taazabites.in/item/3454075/premium-chicken-pink-pasta" },
+    { name: "Dry Fruit Whey Protein Shake", description: "A powerhouse shake with whey protein, almonds, and more.", price: "269", imageUrl: "https://cdn.urbanpiper.com/media/bizmedia/2025/10/15/bCSV8-f1b53677-3e7a-42ac-8e0f-46ed6af19bb6.jpg", tags: ["high-protein", "keto", "healthy-boost"], badge: "Healthy Boost", nutritionInfo: "Calories: 380, Protein: 25g, Carbs: 30g, Fat: 18g", orderLink: "https://taazabites.in/item/5298366/dry-fruit-whey-protein-shake300ml" },
+    { name: "Dry Fruit Chia Pudding", description: "Chia seeds, assorted dry fruits and natural sweeteners.", price: "319", imageUrl: "https://cdn.urbanpiper.com/media/bizmedia/2025/09/03/s9ZRSy5-f46b9d1a-8aca-471a-ae55-11652376cce1.jpg", tags: ["vegetarian", "healthy-start", "healthy-boost"], badge: "Healthy Start", nutritionInfo: "Calories: 350, Protein: 10g, Carbs: 45g, Fat: 15g", orderLink: "https://taazabites.in/item/5379667/dry-fruit-chia-pudding-350g" },
+    { name: "Protein Scramble Rice Bowl", description: "Scrambled eggs, veggie rice, and juicy chicken breast.", price: "349", imageUrl: "https://cdn.urbanpiper.com/media/bizmedia/2025/09/09/5x3bE-3c79d21a-07b6-498b-81fa-649a1c953380.jpg", tags: ["high-protein"], nutritionInfo: "Calories: 480, Protein: 38g, Carbs: 30g, Fat: 24g", orderLink: "https://taazabites.in/item/5215586/protein-scramble-chicken-egg-rice-bowl" },
 ];
 
 // Dynamically generate filter options from menu data
@@ -66,22 +66,26 @@ const MenuItem: React.FC<MenuItemProps & { onNutritionClick: () => void; stagger
     // The useState for image loading has been removed to prevent an unnecessary re-render.
     // The 'is-loaded' class is now added directly in the onLoad event handler for a micro-optimization.
     const baseUrl = imageUrl.split('?')[0];
-    const srcSet = `${baseUrl}?format=webp&w=320&q=75 320w, ${baseUrl}?format=webp&w=480&q=75 480w, ${baseUrl}?format=webp&w=640&q=75 640w`;
+    const avifSrcSet = `${baseUrl}?format=avif&w=320&q=75 320w, ${baseUrl}?format=avif&w=480&q=75 480w, ${baseUrl}?format=avif&w=640&q=75 640w`;
+    const webpSrcSet = `${baseUrl}?format=webp&w=320&q=75 320w, ${baseUrl}?format=webp&w=480&q=75 480w, ${baseUrl}?format=webp&w=640&q=75 640w`;
 
     return (
         <article className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col group transition-all duration-300 hover:shadow-xl h-full animate-on-scroll border border-zinc-200/60" data-animation="slide-fade-in-up" data-stagger-delay={staggerDelay}>
             <div className="relative image-container aspect-[4/3]">
                 {badge && <span className="absolute top-4 left-4 bg-[var(--accent-secondary)] text-white text-xs font-bold px-3 py-1 rounded-full z-10">{badge}</span>}
-                <img 
-                    src={imageUrl}
-                    srcSet={srcSet}
-                    sizes="(max-width: 640px) 85vw, (max-width: 1024px) 45vw, 320px"
-                    alt={`A delicious bowl of ${name} from Taazabites, Bengaluru's top healthy meal delivery.`} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
-                    loading="lazy"
-                    decoding="async"
-                    onLoad={(e) => e.currentTarget.classList.add('is-loaded')}
-                />
+                <picture>
+                    <source type="image/avif" srcSet={avifSrcSet} />
+                    <source type="image/webp" srcSet={webpSrcSet} />
+                    <img 
+                        src={`${baseUrl}?format=webp&w=480&q=75`}
+                        alt={`A delicious bowl of ${name} from Taazabites, Bengaluru's top healthy meal delivery.`} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
+                        loading="lazy"
+                        decoding="async"
+                        sizes="(max-width: 640px) 85vw, (max-width: 1024px) 45vw, 320px"
+                        onLoad={(e) => e.currentTarget.classList.add('is-loaded')}
+                    />
+                </picture>
             </div>
             <div className="p-4 sm:p-6 flex flex-col flex-grow">
                 <h3 className="text-lg sm:text-xl font-bold font-iowan text-zinc-800 group-hover:text-[var(--primary-dark)] transition-colors">{name}</h3>
