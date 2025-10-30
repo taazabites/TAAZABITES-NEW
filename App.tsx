@@ -21,6 +21,7 @@ import { IngredientSpotlight } from './components/IngredientSpotlight';
 import { generateMetaDescription, generateFaqContent } from './services/geminiService';
 import { Faq } from './components/Faq';
 import { WorkoutCoach } from './components/WorkoutCoach';
+import { VideoTestimonials } from './components/VideoTestimonials';
 
 const App: React.FC = () => {
   const [isLoaderVisible, setIsLoaderVisible] = useState(true);
@@ -230,6 +231,7 @@ const App: React.FC = () => {
         <NutritionApproach />
         <IngredientSpotlight />
         <Testimonials />
+        <VideoTestimonials />
         <Faq faqs={faqs} isLoading={isFaqLoading} />
         <CtaSection />
       </main>

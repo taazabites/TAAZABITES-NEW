@@ -9,7 +9,7 @@ const BrandInfo: React.FC = () => (
         <a href="#hero" className="flex items-center gap-2 text-3xl font-bold font-iowan mb-4">
             <span className="text-[var(--primary)]">taaza</span>
             <span className="text-[var(--accent-secondary)]">bites</span>
-            <sup className="text-xs top-[-1em] text-zinc-400">™</sup>
+            <sup className="text-xs top-[-0.75em] text-zinc-400">™</sup>
         </a>
         <p className="text-zinc-400 text-sm leading-relaxed mb-6">Taazabites is Bengaluru's choice for the best healthy food delivery. We offer chef-crafted, nutritionist-designed meals for a healthier you, delivered fresh every day across Bengaluru.</p>
     </>

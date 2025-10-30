@@ -24,7 +24,7 @@ export const Header: React.FC = () => {
    * It prevents the default anchor behavior and uses scrollIntoView
    * for a robust, smooth scroll that works consistently.
    */
-  const handleNavLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleNavLinkClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const targetId = e.currentTarget.getAttribute('href');
     // Ensure we have a valid hash link
@@ -41,7 +41,7 @@ export const Header: React.FC = () => {
     if (isMenuOpen) {
         setIsMenuOpen(false);
     }
-  };
+  }, [isMenuOpen]);
 
   type NavLinkProps = React.PropsWithChildren<{ href: string; mode?: 'dark' | 'light' }>;
 
@@ -74,7 +74,7 @@ export const Header: React.FC = () => {
             <a href="#hero" onClick={handleNavLinkClick} className="flex items-center gap-2 text-2xl sm:text-3xl font-bold font-iowan transition-colors duration-300">
               <span className={isScrolled ? 'text-[var(--primary)]' : 'text-white'}>taaza</span>
               <span className={isScrolled ? 'text-[var(--accent-secondary)]' : 'text-white'}>bites</span>
-              <sup className={`text-xs top-[-1em] ${isScrolled ? 'text-zinc-500' : 'text-white/80'}`}>™</sup>
+              <sup className={`text-xs top-[-0.75em] ${isScrolled ? 'text-zinc-500' : 'text-white/80'}`}>™</sup>
             </a>
             <ul className="hidden lg:flex items-center gap-2">
               <DesktopNavLink href="#hero" mode={isScrolled ? 'dark' : 'light'}>Home</DesktopNavLink>
