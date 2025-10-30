@@ -41,7 +41,7 @@ export const Hero: React.FC = () => {
                 setHeroCopy(copies[randomIndex]);
             }
         } catch (error) {
-            console.error("Failed to fetch dynamic hero copy:", error);
+            // "Failed to fetch dynamic hero copy:", error
             // Fallback to default copy is already handled by initial state
         }
     };

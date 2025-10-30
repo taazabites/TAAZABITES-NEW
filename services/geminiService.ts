@@ -6,7 +6,7 @@ const API_KEY = process.env.API_KEY;
 
 if (!API_KEY) {
   // In a real app, you might want to handle this more gracefully
-  console.error("API_KEY environment variable not set.");
+  // "API_KEY environment variable not set."
 }
 
 const ai = new GoogleGenAI({ apiKey: API_KEY! });
@@ -35,7 +35,7 @@ const generateContentWithRetry = async (prompt: string, systemInstruction: strin
     });
     return response.text;
   } catch (error: any) {
-    console.error("Error generating content from Gemini:", error);
+    // "Error generating content from Gemini:", error
     if (error.message && (error.message.includes('429') || error.message.toLowerCase().includes('rate limit'))) {
         throw new Error("We're experiencing high demand right now. Please try again in a moment.");
     }
@@ -70,7 +70,7 @@ const generateJsonContentWithRetry = async (prompt: string, systemInstruction: s
         return JSON.parse(jsonString);
 
     } catch (error: any) {
-        console.error("Error generating or parsing JSON content from Gemini:", error);
+        // "Error generating or parsing JSON content from Gemini:", error
         if (error instanceof SyntaxError) {
              throw new Error("The AI returned an invalid response format. Please try again.");
         }

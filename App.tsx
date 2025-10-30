@@ -69,7 +69,7 @@ const App: React.FC = () => {
                 updateMetaTag('name', 'twitter:description', result.description);
             }
         } catch (error) {
-            console.error("Failed to fetch dynamic meta description:", error);
+            // "Failed to fetch dynamic meta description:", error
         }
     };
     fetchSeoContent();
@@ -102,12 +102,12 @@ const App: React.FC = () => {
                             }
                         }
                     } catch (e) {
-                        console.error("Failed to parse or update FAQ JSON-LD script.", e);
+                        // "Failed to parse or update FAQ JSON-LD script.", e
                     }
                 }
             }
         } catch (error) {
-            console.error("Failed to load FAQ content:", error);
+            // "Failed to load FAQ content:", error
             // Fallback: The component will show an error message.
         } finally {
             setIsFaqLoading(false);
